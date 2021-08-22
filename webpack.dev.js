@@ -1,13 +1,9 @@
 const path = require("path");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: "./src/index.jsx",
   module: { 
     rules: [
@@ -24,10 +20,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader"
-        ]
+        use: ["style-loader", "css-loader"]
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -46,30 +39,21 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: 'bundle.js',
-    publicPath: "/",
     clean: true,
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    port: 3000,
+    hot: true,
+    compress: true,
   },
   devtool: 'source-map',
   plugins: [
-    new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'React from Scratch',
       template: './public/index.html',
       filename: './index.html'
     }),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-    }),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin(),
-      new CssMinimizerPlugin()
-    ]
-  },
-  performance: {
-    maxEntrypointSize: 20000000,
-    maxAssetSize: 20000000
-  },
 };
