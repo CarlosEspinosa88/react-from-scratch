@@ -16,9 +16,9 @@ export default function Home() {
 
   return (
     <>
-      <p>Hola estoy en Home</p>
-      {obj?.a && <p>tengo un valor y me renderizo: {obj?.a}</p>}
-      <img src={imageExp} alt="email-ayenda" width="300" />
+      <h1>Home</h1>
+      {obj?.a && <p>Optional chaining works fine: {obj?.a}</p>}
+      <img src={imageExp} alt="email-ayenda-image" width="300" />
     </>
   );
 }
