@@ -1,33 +1,33 @@
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
+  context: process.cwd(),
   mode: 'production',
-  entry: "./src/index.jsx",
-  module: { 
+  entry: './src/index.tsx',
+  module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        loader: 'babel-loader',
+        options: { presets: ['@babel/env'] },
       },
       {
         test: /\.html$/i,
-        loader: "html-loader",
+        loader: 'html-loader',
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader"
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -36,17 +36,30 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/resource',
-      }
-    ]
+      },
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+        exclude: /node_modules/,
+      },
+    ],
   },
-  resolve: { 
-    extensions: ["*", ".js", ".jsx"],
-    alias: { 'react-dom': '@hot-loader/react-dom' }
+  resolve: {
+    extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
+    alias: { 'react-dom': '@hot-loader/react-dom' },
+    plugins: [new TsconfigPathsPlugin()],
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: "/",
+    publicPath: '/',
     clean: true,
   },
   devtool: 'source-map',
@@ -55,21 +68,22 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'React from Scratch',
       template: './public/index.html',
-      filename: './index.html'
+      filename: './index.html',
+      hash: true,
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: '[name].css',
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
     }),
   ],
   optimization: {
     minimize: true,
-    minimizer: [
-      new TerserPlugin(),
-      new CssMinimizerPlugin()
-    ]
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
   },
   performance: {
     maxEntrypointSize: 20000000,
-    maxAssetSize: 20000000
+    maxAssetSize: 20000000,
   },
 };
