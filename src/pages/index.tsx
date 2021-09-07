@@ -1,5 +1,10 @@
 import React from 'react';
 import imageExp from '@images/email.png';
+import styled from '@emotion/styled';
+
+const StyledHeader = styled.h1`
+  color: hotpink;
+`;
 
 type ObjProps = {
   a: number;
@@ -16,7 +21,7 @@ export default function Home() {
 
   return (
     <>
-      <h1>Home</h1>
+      <StyledHeader>Home</StyledHeader>
       {obj?.a && <p>Optional chaining works fine: {obj?.a}</p>}
       <img src={imageExp} alt="email-ayenda-image" width="300" />
     </>
