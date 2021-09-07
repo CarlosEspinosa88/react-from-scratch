@@ -3,7 +3,11 @@
     "outDir": "./dist/",
     "baseUrl": "./src",
     "paths": {
-      "@images/*": [ "images/*" ],
+      "@fonts/*": ["fonts/*"],
+      "@pages/*": ["pages/*"],
+      "@images/*": ["images/*"],
+      "@styles/*": ["styles/*"],
+      "@components/*": ["components/*"],
     },
     "lib": [
       "dom",
@@ -28,6 +32,8 @@
     "src",
     "**/*.ts",
     "**/*.tsx",
-    "index.d.ts"
+    "index.d.ts",
+    "emotion.d.ts",
+    "typings/**/*.d.ts",
   ]
 }
