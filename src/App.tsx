@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { ThemeProvider } from '@emotion/react';
 import { hot } from 'react-hot-loader';
+import { theme } from '@styles/theme';
+import { globalStyles } from '@styles/globalStyles';
 import Home from './pages';
-import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Home />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      {globalStyles}
+      <Home />
+    </ThemeProvider>
+  );
 }
 
 export default hot(module)(App);

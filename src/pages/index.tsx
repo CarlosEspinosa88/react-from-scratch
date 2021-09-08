@@ -1,9 +1,16 @@
 import React from 'react';
 import imageExp from '@images/email.png';
 import styled from '@emotion/styled';
+import Button from '@components/Button';
 
 const StyledHeader = styled.h1`
-  color: hotpink;
+  color: ${(props) => props.theme?.color?.hotpink};
+  font-family: ${(props) => props.theme?.font?.family?.bold};
+`;
+
+const StyledText = styled.p`
+  color: ${(props) => props.theme?.color?.darkgray};
+  font-family: ${(props) => props.theme?.font?.family?.regular};
 `;
 
 type ObjProps = {
@@ -22,7 +29,8 @@ export default function Home() {
   return (
     <>
       <StyledHeader>Home</StyledHeader>
-      {obj?.a && <p>Optional chaining works fine: {obj?.a}</p>}
+      <Button />
+      {obj?.a && <StyledText>Optional chaining works fine: {obj?.a}</StyledText>}
       <img src={imageExp} alt="email-ayenda-image" width="300" />
     </>
   );
