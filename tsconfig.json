@@ -7,6 +7,7 @@
       "@pages/*": ["pages/*"],
       "@images/*": ["images/*"],
       "@styles/*": ["styles/*"],
+      "@hooks/*": [ "hooks/*" ],
       "@components/*": ["components/*"],
     },
     "lib": [

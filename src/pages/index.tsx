@@ -2,6 +2,7 @@ import React from 'react';
 import imageExp from '@images/email.png';
 import styled from '@emotion/styled';
 import Button from '@components/Button';
+import Section from '@components/Section';
 
 const StyledHeader = styled.h1`
   color: ${(props) => props.theme?.color?.hotpink};
@@ -28,6 +29,9 @@ export default function Home() {
 
   return (
     <>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <Section key={index + 1} title={`${index + 1}`} />
+      ))}
       <StyledHeader>Home</StyledHeader>
       <Button />
       {obj?.a && <StyledText>Optional chaining works fine: {obj?.a}</StyledText>}
