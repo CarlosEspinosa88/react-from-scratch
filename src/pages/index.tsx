@@ -3,6 +3,7 @@ import imageExp from '@images/email.png';
 import styled from '@emotion/styled';
 import Button from '@components/Button';
 import Section from '@components/Section';
+import OtherSection from '@components/OtherSection';
 
 const StyledHeader = styled.h1`
   color: ${(props) => props.theme?.color?.hotpink};
@@ -36,6 +37,7 @@ export default function Home() {
       <Button />
       {obj?.a && <StyledText>Optional chaining works fine: {obj?.a}</StyledText>}
       <img src={imageExp} alt="email-ayenda-image" width="300" />
+      <OtherSection />
     </>
   );
 }
