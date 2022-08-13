@@ -34,7 +34,7 @@ export default function Home() {
         <Section key={index + 1} title={`${index + 1}`} />
       ))}
       <StyledHeader>Home</StyledHeader>
-      <Button title="Soy un button" />
+      <Button title="Soy un button" onPress={() => null} />
       {obj?.a && <StyledText>Optional chaining works fine: {obj?.a}</StyledText>}
       <img src={imageExp} alt="email-ayenda-image" width="300" />
       <OtherSection />
